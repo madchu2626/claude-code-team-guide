@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>
+body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; line-height: 1.6; color: #333; }
+h1 { font-size: 28px; border-bottom: 2px solid #333; padding-bottom: 8px; }
+h2 { font-size: 22px; margin-top: 40px; color: #1a1a1a; border-bottom: 1px solid #ccc; padding-bottom: 4px; }
+h3 { font-size: 18px; margin-top: 24px; }
+code { background: #f0f0f0; padding: 2px 6px; border-radius: 3px; font-family: Courier New, monospace; font-size: 14px; }
+pre { background: #f5f5f5; border: 1px solid #ddd; border-radius: 6px; padding: 16px; overflow-x: auto; white-space: pre-wrap; }
+pre code { background: none; padding: 0; }
+blockquote { border-left: 4px solid #e0a000; background: #fffbe6; padding: 12px 16px; margin: 16px 0; border-radius: 0 6px 6px 0; }
+table { border-collapse: collapse; width: 100%; margin: 16px 0; }
+th, td { border: 1px solid #ccc; padding: 10px 14px; text-align: left; }
+th { background: #f0f0f0; font-weight: bold; }
+hr { border: none; border-top: 1px solid #ddd; margin: 30px 0; }
+.note { background: #e8f4fd; border-left: 4px solid #2196F3; padding: 12px 16px; margin: 16px 0; border-radius: 0 6px 6px 0; }
+</style>
+</head><body>
+
+<h1>Setting Up Scheduled Workflows — What to Say to Claude Code</h1>
+
+<div class="note">
+<strong>How this works:</strong> Once Claude Code is installed (see Setup Guide), you just tell it what you want. Below are the exact prompts to copy-paste into Claude Code. Claude Code will do the technical work for you.<br><br>
+<strong>You can use the Claude desktop app or Terminal</strong> — both work the same way. The desktop app's code window is usually easier.
+</div>
+
+<hr>
+
+<h2>Before You Start</h2>
+
+<h3>Option A: Using the Claude Desktop App (Recommended)</h3>
+<ol>
+<li>Open the <strong>Claude</strong> desktop app</li>
+<li>Open the <strong>code window</strong> (look for the terminal/code icon)</li>
+<li>Navigate to your project folder by typing: <code>cd ~/Desktop/my-project</code></li>
+<li>Copy-paste the prompts below</li>
+</ol>
+
+<h3>Option B: Using Terminal</h3>
+<ol>
+<li>Open Terminal (Command+Space → type Terminal → Enter)</li>
+<li>Navigate to your project folder:</li>
+</ol>
+<pre><code>cd ~/Desktop/my-project</code></pre>
+<ol start="3">
+<li>Start Claude Code:</li>
+</ol>
+<pre><code>claude</code></pre>
+<ol start="4">
+<li>Copy-paste the prompts below</li>
+</ol>
+
+<div class="note">
+<strong>Tip:</strong> If Claude keeps asking "Allow this action?" before every step, type <code>/permissions</code> and select <strong>"Allow All"</strong>. This lets Claude work without pausing for approval each time.
+</div>
+
+<hr>
+
+<h2>PROMPT 1: "Set up everything I need for scheduled workflows"</h2>
+
+<p>Copy-paste this into Claude Code:</p>
+
+<pre><code>I want to set up automated workflows that run on a schedule (like daily, or every few hours). This project is a git repo connected to GitHub.
+
+Please help me:
+
+1. Check if this repo has GitHub Actions set up already. If not, set it up.
+2. Check if I have the Claude GitHub App installed. If not, walk me through installing it step by step.
+3. Make sure I have an ANTHROPIC_API_KEY stored as a GitHub Secret. If not, walk me through how to add one step by step.
+4. Create a GitHub Actions workflow file that runs on a schedule.
+
+For now, make it a simple daily workflow that runs at 9am UTC. We'll customize what it does in the next step.
+
+Go step by step. Wait for my confirmation before making any changes. Explain everything in plain English — I'm not a developer.</code></pre>
+
+<hr>
+
+<h2>PROMPT 2: "Make it do [your actual task]"</h2>
+
+<p>After the setup is done, tell Claude what you actually want the scheduled workflow to do. Here are examples:</p>
+
+<h3>Example — Daily report:</h3>
+<pre><code>Now update the scheduled workflow so it does this every day at 9am UTC:
+- Look at all the files in this project
+- Generate a summary of what changed in the last 24 hours
+- Post the summary as a GitHub Issue
+
+Keep the workflow simple and add a budget limit of $2 per run.</code></pre>
+
+<h3>Example — Run a script every 6 hours:</h3>
+<pre><code>Now update the scheduled workflow so it runs every 6 hours and does this:
+- Run the script at scripts/check-data.py
+- If the script fails or finds errors, create a GitHub Issue with the error details
+
+Keep it simple and add a budget limit of $1 per run.</code></pre>
+
+<h3>Example — Weekly cleanup:</h3>
+<pre><code>Now update the scheduled workflow so it runs every Monday at 8am UTC:
+- Check for any open GitHub Issues older than 30 days
+- Add a comment on each one asking if it's still relevant
+- Create a summary Issue listing all stale issues
+
+Keep it simple and add a budget limit of $2 per run.</code></pre>
+
+<hr>
+
+<h2>PROMPT 3: "Change the schedule"</h2>
+
+<p>If you want to change when it runs, just say so:</p>
+
+<pre><code>Change the scheduled workflow to run every 4 hours instead of daily.</code></pre>
+
+<pre><code>Change the scheduled workflow to run Monday through Friday at 9am UTC only (not weekends).</code></pre>
+
+<pre><code>Change the scheduled workflow to run twice a day — at 9am and 5pm UTC.</code></pre>
+
+<hr>
+
+<h2>PROMPT 4: "Set up a local cron job instead"</h2>
+
+<p>If you want something to run on YOUR computer (not on GitHub), use this:</p>
+
+<pre><code>I want to set up a cron job on my Mac that runs automatically on a schedule.
+
+Here's what I want:
+- Every day at 9am, run Claude Code with this task: "[DESCRIBE YOUR TASK HERE]"
+- Save the output to a log file so I can check it later
+- Make sure my API key is loaded properly
+- Use the --dangerously-skip-permissions flag so it doesn't get stuck waiting for approval
+
+Set this up for me step by step. Explain what a cron job is in simple terms. Show me how to check if it's running and how to stop it if I need to.
+
+Important: I'm not a developer, so please explain everything in plain English.</code></pre>
+
+<blockquote>
+<strong>Note about cron jobs:</strong><br>
+- Your computer needs to be ON and AWAKE for cron jobs to run<br>
+- If your Mac is asleep or off at the scheduled time, it will skip that run<br>
+- GitHub Actions (Prompts 1-3 above) run on GitHub's servers, so they work even when your computer is off<br>
+- <strong>For most people, GitHub Actions is the better choice</strong>
+</blockquote>
+
+<hr>
+
+<h2>PROMPT 5: "Show me what's already set up"</h2>
+
+<p>If you forget what workflows you have:</p>
+
+<pre><code>Show me all the scheduled workflows set up in this project. For each one, tell me:
+- What it does (in plain English)
+- When it runs
+- Where I can see the results
+
+Explain it simply.</code></pre>
+
+<hr>
+
+<h2>PROMPT 6: "Something is broken"</h2>
+
+<p>If a workflow stops working:</p>
+
+<pre><code>The scheduled workflow in this project seems broken. Can you:
+1. Check the GitHub Actions tab for any failed runs
+2. Tell me what went wrong in plain English
+3. Fix it if you can, or tell me what I need to do
+
+Explain everything simply — I'm not a developer.</code></pre>
+
+<hr>
+
+<h2>Quick Decision Guide</h2>
+
+<table>
+<tr><th>I want the task to run...</th><th>Use this</th></tr>
+<tr><td>Even when my computer is off</td><td>GitHub Actions (Prompt 1)</td></tr>
+<tr><td>Only when my computer is on</td><td>Cron job (Prompt 4)</td></tr>
+<tr><td>Once a day</td><td>Either works</td></tr>
+<tr><td>Every few minutes</td><td>GitHub Actions (Prompt 1)</td></tr>
+<tr><td>And I don't want to deal with GitHub</td><td>Cron job (Prompt 4)</td></tr>
+</table>
+
+<hr>
+
+<h2>Common Schedules (for reference)</h2>
+
+<p>When Claude asks you what schedule you want, here are common options:</p>
+
+<table>
+<tr><th>Schedule</th><th>How to say it</th></tr>
+<tr><td>Every day at 9am</td><td>"Run daily at 9am UTC"</td></tr>
+<tr><td>Every weekday at 9am</td><td>"Run Monday to Friday at 9am UTC"</td></tr>
+<tr><td>Every 6 hours</td><td>"Run every 6 hours"</td></tr>
+<tr><td>Every hour</td><td>"Run every hour"</td></tr>
+<tr><td>Every Monday at 8am</td><td>"Run weekly on Monday at 8am UTC"</td></tr>
+<tr><td>Twice a day</td><td>"Run at 9am and 5pm UTC"</td></tr>
+</table>
+
+<blockquote>
+<strong>What's UTC?</strong><br>
+UTC is a universal time zone. If you're in Pacific Time, UTC is 8 hours ahead. So "9am UTC" = 1am Pacific = 4am Eastern. Just tell Claude what time you want in YOUR timezone and it will convert it.
+</blockquote>
+
+</body></html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>
+body { font-family: Arial, sans-serif; max-width: 700px; margin: 40px auto; padding: 0 20px; line-height: 1.6; color: #333; }
+h1 { font-size: 28px; border-bottom: 2px solid #333; padding-bottom: 8px; text-align: center; }
+h2 { font-size: 20px; margin-top: 30px; color: #1a1a1a; border-bottom: 1px solid #ccc; padding-bottom: 4px; }
+code { background: #f0f0f0; padding: 2px 6px; border-radius: 3px; font-family: Courier New, monospace; font-size: 14px; }
+pre { background: #f5f5f5; border: 1px solid #ddd; border-radius: 6px; padding: 12px; }
+pre code { background: none; padding: 0; }
+table { border-collapse: collapse; width: 100%; margin: 12px 0; }
+th, td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
+th { background: #f0f0f0; font-weight: bold; }
+hr { border: none; border-top: 1px solid #ddd; margin: 24px 0; }
+.subtitle { text-align: center; color: #666; margin-top: -8px; font-size: 16px; }
+</style>
+</head><body>
+
+<h1>Claude Code — Cheat Sheet</h1>
+<p class="subtitle">Print this page. Keep it at your desk.</p>
+
+<hr>
+
+<h2>Open Claude Code</h2>
+
+<ol>
+<li>Open <strong>Terminal</strong> (Command+Space → type Terminal → Enter)</li>
+<li>Go to your project folder:</li>
+</ol>
+<pre><code>cd ~/Desktop/your-project-name</code></pre>
+<ol start="3">
+<li>Type <code>claude</code> and press Enter</li>
+</ol>
+
+<hr>
+
+<h2>Everyday Commands</h2>
+
+<table>
+<tr><th>What you want</th><th>What to type in Terminal</th></tr>
+<tr><td>Start Claude</td><td><code>claude</code></td></tr>
+<tr><td>Exit / stop</td><td>Press <strong>Escape</strong>, type <code>/exit</code>, press <strong>Enter</strong></td></tr>
+<tr><td>Force stop</td><td><strong>Ctrl + C</strong> (press twice if needed)</td></tr>
+<tr><td>Update</td><td><code>claude update</code></td></tr>
+<tr><td>Check health</td><td><code>claude doctor</code></td></tr>
+<tr><td>Check login</td><td><code>claude auth status</code></td></tr>
+<tr><td>Re-login</td><td><code>claude auth login</code></td></tr>
+</table>
+
+<hr>
+
+<h2>Inside a Claude Conversation</h2>
+
+<table>
+<tr><th>What you want</th><th>What to type</th></tr>
+<tr><td>Ask Claude something</td><td>Just type your question and press Enter</td></tr>
+<tr><td>Cancel what Claude is doing</td><td>Press <strong>Escape</strong></td></tr>
+<tr><td>Clear the screen</td><td>Type <code>/clear</code> and press Enter</td></tr>
+<tr><td>Exit</td><td>Type <code>/exit</code> and press Enter</td></tr>
+</table>
+
+<hr>
+
+<h2>Something Not Working?</h2>
+
+<ol>
+<li>Run <code>claude doctor</code> — it will tell you what's wrong</li>
+<li>Try <code>claude update</code> — you might need a newer version</li>
+<li>Try <code>claude auth login</code> — your login might have expired</li>
+<li>Close Terminal and reopen it — sometimes that fixes things</li>
+<li>Still stuck? Screenshot the error and send it to your team lead</li>
+</ol>
+
+</body></html>

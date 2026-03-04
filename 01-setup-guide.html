@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>
+body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; line-height: 1.6; color: #333; }
+h1 { font-size: 28px; border-bottom: 2px solid #333; padding-bottom: 8px; }
+h2 { font-size: 22px; margin-top: 40px; color: #1a1a1a; border-bottom: 1px solid #ccc; padding-bottom: 4px; }
+code { background: #f0f0f0; padding: 2px 6px; border-radius: 3px; font-family: Courier New, monospace; font-size: 14px; }
+pre { background: #f5f5f5; border: 1px solid #ddd; border-radius: 6px; padding: 16px; overflow-x: auto; }
+pre code { background: none; padding: 0; }
+blockquote { border-left: 4px solid #e0a000; background: #fffbe6; padding: 12px 16px; margin: 16px 0; border-radius: 0 6px 6px 0; }
+blockquote strong { color: #b8860b; }
+table { border-collapse: collapse; width: 100%; margin: 16px 0; }
+th, td { border: 1px solid #ccc; padding: 10px 14px; text-align: left; }
+th { background: #f0f0f0; font-weight: bold; }
+ol, ul { padding-left: 24px; }
+li { margin-bottom: 6px; }
+hr { border: none; border-top: 1px solid #ddd; margin: 30px 0; }
+.note { background: #e8f4fd; border-left: 4px solid #2196F3; padding: 12px 16px; margin: 16px 0; border-radius: 0 6px 6px 0; }
+</style>
+</head><body>
+
+<h1>Claude Code — Setup Guide</h1>
+
+<div class="note">
+<strong>Read this first:</strong> This guide walks you through everything step by step. Follow each step exactly. Don't skip ahead. If something goes wrong, check the "Troubleshooting" box after each section.
+</div>
+
+<hr>
+
+<h2>Before You Start</h2>
+
+<p>You need:</p>
+<ul>
+<li>A Mac computer (macOS 13 or newer)</li>
+<li>Wi-Fi / internet connection</li>
+<li>A Claude account (Pro or Max plan) — ask your manager if you don't have one</li>
+</ul>
+
+<hr>
+
+<h2>STEP 1: Download the Claude Desktop App</h2>
+
+<p>The Claude desktop app is the easiest way to use Claude on your Mac. It also has a built-in <strong>code window</strong> where you can run Claude Code — no Terminal needed for most things.</p>
+
+<ol>
+<li>Go to <strong>claude.ai/download</strong> in your web browser</li>
+<li>Click <strong>Download for Mac</strong></li>
+<li>Open the downloaded file (it will be in your Downloads folder)</li>
+<li>Drag the Claude icon into your Applications folder</li>
+<li>Open <strong>Claude</strong> from your Applications folder (or press Command+Space → type Claude → click it)</li>
+<li>Log in with your Claude account (email + password)</li>
+</ol>
+
+<div class="note">
+<strong>Tip — The Code Window:</strong> Inside the Claude desktop app, you can open a <strong>code window</strong> to run Claude Code directly. This is often easier than using Terminal. Look for the <strong>terminal/code icon</strong> in the app, or use the keyboard shortcut. You can type commands and talk to Claude Code right inside the app — no need to open a separate Terminal window.
+</div>
+
+<blockquote>
+<strong>Troubleshooting</strong><br><br>
+<strong>"Claude can't be opened because it is from an unidentified developer"</strong> → Go to System Settings → Privacy & Security → scroll down and click "Open Anyway".<br><br>
+<strong>Don't see the download?</strong> → Check your Downloads folder. The file is called something like <code>Claude.dmg</code>.
+</blockquote>
+
+<hr>
+
+<h2>STEP 2: Install Claude Code (Command Line)</h2>
+
+<p>Even though the desktop app works great, installing Claude Code in Terminal gives you extra power — like running scheduled workflows automatically. You'll need both.</p>
+
+<h3>First, open Terminal:</h3>
+
+<p>Terminal is an app already on your Mac. You don't need to install it. (You can also use the code window inside the Claude desktop app — but for this step, let's use Terminal.)</p>
+
+<ol>
+<li>Press <strong>Command + Space</strong> on your keyboard (this opens Spotlight search)</li>
+<li>Type: <strong>Terminal</strong></li>
+<li>Click on <strong>Terminal</strong> in the results</li>
+<li>A window with a black or white background will appear with a blinking cursor</li>
+</ol>
+
+<blockquote>
+<strong>What is Terminal?</strong><br>
+It's like a text-based way to talk to your computer. You type commands, press Enter, and the computer does things. You don't need to understand it deeply — just copy-paste what this guide tells you.
+</blockquote>
+
+<hr>
+
+<h2>STEP 3: Install Claude Code</h2>
+
+<ol>
+<li>Click on the Terminal window so it's active</li>
+<li><strong>Copy</strong> this entire line (triple-click to select it all, then Command+C):</li>
+</ol>
+
+<pre><code>curl -fsSL https://claude.ai/install.sh | bash</code></pre>
+
+<ol start="3">
+<li><strong>Paste</strong> it into Terminal (Command+V)</li>
+<li>Press <strong>Enter</strong></li>
+<li>Wait — you'll see text scrolling. This is normal. It takes about 1-2 minutes.</li>
+<li>When it's done, you'll see something like <code>Claude Code installed successfully</code></li>
+</ol>
+
+<blockquote>
+<strong>Troubleshooting</strong><br><br>
+<strong>"Permission denied"</strong> → Try this instead:<br>
+<pre><code>sudo curl -fsSL https://claude.ai/install.sh | bash</code></pre>
+It will ask for your Mac password. Type it (you won't see the letters — that's normal) and press Enter.<br><br>
+
+<strong>"command not found: curl"</strong> → You may need to install Xcode tools first. Run:<br>
+<pre><code>xcode-select --install</code></pre>
+Click "Install" on the popup, wait for it to finish, then try the install command again.<br><br>
+
+<strong>Nothing happens / it hangs</strong> → Check your internet connection. Close Terminal, reopen it, and try again.
+</blockquote>
+
+<hr>
+
+<h2>STEP 4: Restart Terminal</h2>
+
+<p><strong>This is important! Claude Code won't work until you do this.</strong></p>
+
+<ol>
+<li>Close the Terminal window (click the red X button, or press Command+Q)</li>
+<li>Open Terminal again (Command+Space → type Terminal → click it)</li>
+</ol>
+
+<hr>
+
+<h2>STEP 5: Check That It Worked</h2>
+
+<ol>
+<li>In Terminal, <strong>copy and paste</strong> this:</li>
+</ol>
+
+<pre><code>claude --version</code></pre>
+
+<ol start="2">
+<li>Press <strong>Enter</strong></li>
+<li>You should see a version number like <code>1.x.x</code></li>
+</ol>
+
+<p><strong>If you see a version number → It worked! Move to Step 6.</strong></p>
+
+<blockquote>
+<strong>Troubleshooting</strong><br><br>
+<strong>"command not found: claude"</strong> → You need to restart Terminal (Step 4). If you already did, try:<br>
+<pre><code>source ~/.zshrc</code></pre>
+Then try <code>claude --version</code> again.<br><br>
+<strong>Still not working?</strong> → Try reinstalling (go back to Step 3).
+</blockquote>
+
+<hr>
+
+<h2>STEP 6: Log In to Claude Code</h2>
+
+<ol>
+<li>In Terminal, <strong>copy and paste</strong> this:</li>
+</ol>
+
+<pre><code>claude auth login</code></pre>
+
+<ol start="2">
+<li>Press <strong>Enter</strong></li>
+<li>Your web browser will open automatically</li>
+<li>Log in with your Claude account (email + password)</li>
+<li>Click <strong>"Allow"</strong> or <strong>"Authorize"</strong> when asked</li>
+<li>Go back to Terminal — you should see a success message</li>
+</ol>
+
+<blockquote>
+<strong>Troubleshooting</strong><br><br>
+<strong>Browser didn't open?</strong> → Look for a URL in the Terminal output. Copy it and paste it into your browser manually.<br><br>
+<strong>"Account not authorized"</strong> → Make sure you have a Claude Pro or Max subscription, or that your team admin has added you.
+</blockquote>
+
+<hr>
+
+<h2>STEP 7: Test It!</h2>
+
+<p>Let's make sure everything works. You can do this in <strong>Terminal</strong> or in the <strong>Claude desktop app's code window</strong> — both work the same way.</p>
+
+<h3>Option A: Using the Claude Desktop App (Recommended)</h3>
+<ol>
+<li>Open the <strong>Claude</strong> app</li>
+<li>Look for the <strong>code window</strong> or <strong>terminal icon</strong> (it may say "Claude Code" or show a <code>&gt;_</code> icon)</li>
+<li>Click it to open the code window</li>
+<li>Type something like: <code>What is 2 + 2?</code></li>
+<li>Claude will respond. You should see an answer.</li>
+</ol>
+
+<h3>Option B: Using Terminal</h3>
+<ol>
+<li>In Terminal, type:</li>
+</ol>
+
+<pre><code>claude</code></pre>
+
+<ol start="2">
+<li>Press <strong>Enter</strong></li>
+<li>Type something like: <code>What is 2 + 2?</code></li>
+<li>Press <strong>Enter</strong></li>
+<li>Claude will respond. You should see an answer.</li>
+</ol>
+
+<p><strong>If you got a response → Congratulations, you're all set!</strong></p>
+
+<p>To exit the conversation:</p>
+<ul>
+<li>Press <strong>Escape</strong> then type <code>/exit</code> and press Enter</li>
+<li>Or press <strong>Ctrl+C</strong> twice</li>
+</ul>
+
+<div class="note">
+<strong>Going forward, use whichever you prefer!</strong> The Claude desktop app's code window and Terminal do the same thing. Most people find the desktop app easier since it's already open.
+</div>
+
+<hr>
+
+<h2>STEP 8: Run a Health Check</h2>
+
+<p>One last thing — let's make sure everything is healthy:</p>
+
+<ol>
+<li>In Terminal, <strong>copy and paste</strong>:</li>
+</ol>
+
+<pre><code>claude doctor</code></pre>
+
+<ol start="2">
+<li>Press <strong>Enter</strong></li>
+<li>You'll see a checklist. Everything should have a green checkmark</li>
+</ol>
+
+<blockquote>
+<strong>Troubleshooting</strong><br><br>
+<strong>Red X on something?</strong> → Take a screenshot and send it to your team lead. It will show what needs fixing.
+</blockquote>
+
+<hr>
+
+<h2>STEP 9: Skip Permission Prompts (Important!)</h2>
+
+<p>By default, Claude Code will ask you "Allow this action?" over and over before doing anything — editing a file, running a command, etc. This gets annoying fast. Let's fix that.</p>
+
+<h3>How to turn off permission prompts:</h3>
+
+<ol>
+<li>Open <strong>Claude Code Settings</strong>:
+  <ul>
+  <li>In the <strong>Claude desktop app</strong>: go to <strong>Settings</strong> (gear icon or <code>Claude → Settings</code> in the menu bar)</li>
+  <li>In <strong>Terminal</strong>: type <code>/permissions</code> inside a Claude Code session</li>
+  </ul>
+</li>
+<li>Find the permissions or tool approval setting</li>
+<li>Set it to <strong>"Allow All"</strong> (also called "yolo mode")</li>
+<li>Save / confirm</li>
+</ol>
+
+<p>That's it. Claude will now read, write, and run commands without asking you each time.</p>
+
+<h3>For automated / scheduled workflows:</h3>
+
+<p>If you're setting up cron jobs or GitHub Actions that run Claude Code automatically (without a human watching), add this flag:</p>
+
+<pre><code>claude --dangerously-skip-permissions</code></pre>
+
+<p>This is required so the workflow doesn't get stuck waiting for someone to click "Allow."</p>
+
+<blockquote>
+<strong>Is this safe?</strong><br>
+Yes, for your use case. This just means Claude won't pause to ask "can I edit this file?" every time. It will still follow the instructions you give it. If you're ever worried, you can always switch back to a stricter mode in Settings.
+</blockquote>
+
+<hr>
+
+<h2>You're Done!</h2>
+
+<p>That's it. Claude Code is installed and ready to use.</p>
+
+<p><strong>What to do next:</strong></p>
+<ul>
+<li>Keep the <strong>Cheat Sheet</strong> (separate doc) nearby for quick reference</li>
+<li>Your scheduled workflows are already set up — you don't need to do anything for those</li>
+<li>If something breaks, run <code>claude doctor</code> and share the output with your team lead</li>
+</ul>
+
+<hr>
+
+<h2>Quick Reference</h2>
+
+<table>
+<tr><th>What you want to do</th><th>What to do</th></tr>
+<tr><td>Start a conversation</td><td>Open the <strong>Claude desktop app</strong> and use the code window, <em>or</em> type <code>claude</code> in Terminal</td></tr>
+<tr><td>Stop / exit</td><td>Press Escape, type <code>/exit</code>, press Enter</td></tr>
+<tr><td>Skip permission prompts</td><td>Type <code>/permissions</code> → select "Allow All"</td></tr>
+<tr><td>Check it's working</td><td><code>claude doctor</code></td></tr>
+<tr><td>Update to latest version</td><td><code>claude update</code></td></tr>
+<tr><td>Check your login</td><td><code>claude auth status</code></td></tr>
+<tr><td>Re-login</td><td><code>claude auth login</code></td></tr>
+</table>
+
+<hr>
+
+<h2>FAQ</h2>
+
+<p><strong>Q: Do I need to keep Terminal open all the time?</strong><br>
+A: No. Open it when you need Claude, close it when you're done.</p>
+
+<p><strong>Q: Will this slow down my computer?</strong><br>
+A: No. It only uses resources while you're actively using it.</p>
+
+<p><strong>Q: Do I need to update it?</strong><br>
+A: It updates automatically. But if something seems off, run <code>claude update</code>.</p>
+
+<p><strong>Q: What if I close my laptop in the middle of a conversation?</strong><br>
+A: That's fine. The conversation ends. Start a new one when you open Terminal again.</p>
+
+<p><strong>Q: Is this the same Claude as the website?</strong><br>
+A: Yes, same AI. But Claude Code can read and edit files on your computer, run commands, and interact with code — the website version can't do that.</p>
+
+<p><strong>Q: How much does it cost?</strong><br>
+A: It's included with your Claude Pro/Max subscription. If your team uses API keys, your team lead manages the budget.</p>
+
+</body></html>
