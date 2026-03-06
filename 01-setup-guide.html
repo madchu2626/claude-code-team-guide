@@ -117,34 +117,11 @@ It just means Claude won't pause to ask "can I edit this file?" or "can I run th
 
 <h2>STEP 4: Set Up Slack Notifications</h2>
 
-<p>You do <strong>NOT</strong> need to create a Slack app or bot. Here are three easy options — pick whichever works for you.</p>
+<p>You do <strong>NOT</strong> need to create a Slack app or bot. Here are two easy options.</p>
 
-<h3>Option A: Email the Slack channel (Easiest — no Slack setup at all)</h3>
+<h3>Option A: Slack MCP Connector (recommended)</h3>
 
-<p>Every Slack channel has a secret email address. If you already connected Gmail (Step 5), Claude can just email the channel. No Slack app, no webhook, nothing.</p>
-
-<p><strong>One-time setup:</strong></p>
-<ol>
-<li>In Slack, open the channel you want to receive messages (e.g., #reports)</li>
-<li>Click the <strong>channel name</strong> at the top to open channel settings</li>
-<li>Go to <strong>Integrations</strong> tab</li>
-<li>Click <strong>"Send emails to this channel"</strong> and copy the email address it gives you</li>
-<li>Save that email address somewhere your team can access</li>
-</ol>
-
-<p>Now just tell Claude to email that address:</p>
-
-<pre><code>Send a summary of today's report to our Slack channel by emailing it to: reports-abc123@yourworkspace.slack.com</code></pre>
-
-<p>The email shows up as a message in the Slack channel. That's it.</p>
-
-<div class="best-practice">
-<strong>Why this is great:</strong> You already set up Gmail in Step 5. This reuses that connection — no extra setup on the Slack side beyond getting the channel email address. Works for scheduled workflows too.
-</div>
-
-<h3>Option B: Slack MCP Connector (built into Claude Desktop)</h3>
-
-<p>Claude Desktop has a built-in Slack connector that handles all the auth for you.</p>
+<p>Claude Desktop has a built-in Slack connector that handles all the auth for you. No Slack app needed.</p>
 <ol>
 <li>Open the Claude desktop app → <strong>Settings</strong></li>
 <li>Look for <strong>Connectors</strong> or <strong>MCP Servers</strong></li>
@@ -153,7 +130,9 @@ It just means Claude won't pause to ask "can I edit this file?" or "can I run th
 <li>Once connected, just tell Claude "send a message to #reports" in plain English</li>
 </ol>
 
-<h3>Option C: GitHub → Slack (for scheduled workflows)</h3>
+<p>This also lets Claude <strong>read and search</strong> your Slack messages — not just send.</p>
+
+<h3>Option B: GitHub → Slack (for scheduled workflows)</h3>
 
 <p>If you're running scheduled workflows through GitHub Actions, GitHub has a native Slack integration. No Claude-side Slack setup needed.</p>
 <ol>
@@ -167,9 +146,8 @@ It just means Claude won't pause to ask "can I edit this file?" or "can I run th
 <div class="note">
 <strong>Which should I pick?</strong><br>
 <ul>
-<li><strong>Option A (email)</strong> — best if you don't want to touch Slack settings at all. Just get the channel email and go.</li>
-<li><strong>Option B (connector)</strong> — best if you want Claude to read and search Slack messages too, not just send.</li>
-<li><strong>Option C (GitHub)</strong> — best for scheduled workflow notifications. Set and forget.</li>
+<li><strong>Option A (connector)</strong> — best for everyday use. Claude can send, read, and search Slack. Works in the desktop app.</li>
+<li><strong>Option B (GitHub)</strong> — best for scheduled workflow notifications. Set and forget.</li>
 </ul>
 </div>
 
