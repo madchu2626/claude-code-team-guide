@@ -117,40 +117,60 @@ It just means Claude won't pause to ask "can I edit this file?" or "can I run th
 
 <h2>STEP 4: Set Up Slack Notifications</h2>
 
-<p>There are two ways to get Claude to send Slack messages. Pick whichever is easier for you.</p>
+<p>You do <strong>NOT</strong> need to create a Slack app or bot. Here are three easy options — pick whichever works for you.</p>
 
-<h3>Option A: Slack MCP Connector (recommended if available)</h3>
+<h3>Option A: Email the Slack channel (Easiest — no Slack setup at all)</h3>
 
-<p>If your Claude desktop app shows a <strong>Connectors</strong> section in Settings:</p>
+<p>Every Slack channel has a secret email address. If you already connected Gmail (Step 5), Claude can just email the channel. No Slack app, no webhook, nothing.</p>
+
+<p><strong>One-time setup:</strong></p>
 <ol>
-<li>Open <strong>Settings</strong> in the Claude desktop app</li>
-<li>Look for <strong>Connectors</strong> or <strong>MCP Servers</strong></li>
-<li>Find and enable the <strong>Slack</strong> connector</li>
-<li>Authorize with your Slack workspace when prompted</li>
-<li>Once connected, just tell Claude "send a message to #channel" in plain English</li>
+<li>In Slack, open the channel you want to receive messages (e.g., #reports)</li>
+<li>Click the <strong>channel name</strong> at the top to open channel settings</li>
+<li>Go to <strong>Integrations</strong> tab</li>
+<li>Click <strong>"Send emails to this channel"</strong> and copy the email address it gives you</li>
+<li>Save that email address somewhere your team can access</li>
 </ol>
 
-<h3>Option B: Slack Webhook (simple, always works)</h3>
+<p>Now just tell Claude to email that address:</p>
 
-<p>A webhook is a special URL. When Claude sends a message to that URL, it shows up in your Slack channel.</p>
+<pre><code>Send a summary of today's report to our Slack channel by emailing it to: reports-abc123@yourworkspace.slack.com</code></pre>
 
-<p><strong>One-time setup (done by your team lead once):</strong></p>
-<ol>
-<li>Go to <strong>slack.com/apps</strong> and search for <strong>"Incoming WebHooks"</strong></li>
-<li>Click <strong>Add to Slack</strong></li>
-<li>Pick the <strong>channel</strong> (e.g., #reports)</li>
-<li>Click <strong>Add Incoming WebHooks Integration</strong></li>
-<li>Copy the <strong>Webhook URL</strong> and save it somewhere your team can access</li>
-</ol>
-
-<p>Then tell Claude to send via the webhook using a curl command in your prompt:</p>
-
-<pre><code>After generating the report, send a summary to our Slack channel by running this curl command with the results:
-
-curl -X POST -H 'Content-type: application/json' --data '{"text":"YOUR SUMMARY HERE"}' https://hooks.slack.com/services/PASTE-YOUR-WEBHOOK-URL-HERE</code></pre>
+<p>The email shows up as a message in the Slack channel. That's it.</p>
 
 <div class="best-practice">
-<strong>Best practice:</strong> Don't put webhook URLs in public repos. Keep it in a private config or just paste it directly in your prompt.
+<strong>Why this is great:</strong> You already set up Gmail in Step 5. This reuses that connection — no extra setup on the Slack side beyond getting the channel email address. Works for scheduled workflows too.
+</div>
+
+<h3>Option B: Slack MCP Connector (built into Claude Desktop)</h3>
+
+<p>Claude Desktop has a built-in Slack connector that handles all the auth for you.</p>
+<ol>
+<li>Open the Claude desktop app → <strong>Settings</strong></li>
+<li>Look for <strong>Connectors</strong> or <strong>MCP Servers</strong></li>
+<li>Find <strong>Slack</strong> and click to enable it</li>
+<li>Authorize with your Slack workspace when prompted (just click Allow)</li>
+<li>Once connected, just tell Claude "send a message to #reports" in plain English</li>
+</ol>
+
+<h3>Option C: GitHub → Slack (for scheduled workflows)</h3>
+
+<p>If you're running scheduled workflows through GitHub Actions, GitHub has a native Slack integration. No Claude-side Slack setup needed.</p>
+<ol>
+<li>Go to <strong>github.com/integrations/slack</strong></li>
+<li>Click <strong>Add to Slack</strong></li>
+<li>Pick your Slack workspace and authorize</li>
+<li>In Slack, type: <code>/github subscribe owner/repo workflows</code></li>
+<li>GitHub will now post workflow results directly to your Slack channel</li>
+</ol>
+
+<div class="note">
+<strong>Which should I pick?</strong><br>
+<ul>
+<li><strong>Option A (email)</strong> — best if you don't want to touch Slack settings at all. Just get the channel email and go.</li>
+<li><strong>Option B (connector)</strong> — best if you want Claude to read and search Slack messages too, not just send.</li>
+<li><strong>Option C (GitHub)</strong> — best for scheduled workflow notifications. Set and forget.</li>
+</ul>
 </div>
 
 <hr>
