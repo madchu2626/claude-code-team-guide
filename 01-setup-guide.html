@@ -4,6 +4,7 @@
 body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; line-height: 1.6; color: #333; }
 h1 { font-size: 28px; border-bottom: 2px solid #333; padding-bottom: 8px; }
 h2 { font-size: 22px; margin-top: 40px; color: #1a1a1a; border-bottom: 1px solid #ccc; padding-bottom: 4px; }
+h3 { font-size: 18px; margin-top: 24px; }
 code { background: #f0f0f0; padding: 2px 6px; border-radius: 3px; font-family: Courier New, monospace; font-size: 14px; }
 pre { background: #f5f5f5; border: 1px solid #ddd; border-radius: 6px; padding: 16px; overflow-x: auto; }
 pre code { background: none; padding: 0; }
@@ -17,6 +18,7 @@ li { margin-bottom: 6px; }
 hr { border: none; border-top: 1px solid #ddd; margin: 30px 0; }
 .note { background: #e8f4fd; border-left: 4px solid #2196F3; padding: 12px 16px; margin: 16px 0; border-radius: 0 6px 6px 0; }
 .important { background: #fce4ec; border-left: 4px solid #e53935; padding: 12px 16px; margin: 16px 0; border-radius: 0 6px 6px 0; }
+.best-practice { background: #e8f5e9; border-left: 4px solid #43a047; padding: 12px 16px; margin: 16px 0; border-radius: 0 6px 6px 0; }
 </style>
 </head><body>
 
@@ -41,7 +43,7 @@ hr { border: none; border-top: 1px solid #ddd; margin: 30px 0; }
 
 <h2>STEP 1: Download the Claude Desktop App</h2>
 
-<p>The Claude desktop app is the main way you'll use Claude. It has a built-in <strong>code window</strong> where you can run Claude Code — no Terminal needed.</p>
+<p>The Claude desktop app is the main way you'll use Claude. It has a built-in <strong>code window</strong> for Claude Code and a <strong>Cowork mode</strong> for bigger tasks — all without needing Terminal.</p>
 
 <ol>
 <li>Go to <strong>claude.ai/download</strong> in your web browser</li>
@@ -92,13 +94,13 @@ It will ask for your Mac password. Type it (you won't see the letters — that's
 <strong>Do this now!</strong> Without this step, Claude Code will ask "Allow this action?" before every single thing it does. It makes Claude Code almost unusable. This takes 30 seconds to fix.
 </div>
 
-<p><strong>Click-by-click instructions:</strong></p>
+<p><strong>Click-by-click:</strong></p>
 
 <ol>
 <li>Open the <strong>Claude desktop app</strong></li>
 <li>Click <strong>Claude</strong> in the top menu bar (next to the Apple logo)</li>
 <li>Click <strong>Settings...</strong></li>
-<li>Look for <strong>"Claude Code"</strong> in the settings sidebar and click it</li>
+<li>Click <strong>"Claude Code"</strong> in the settings sidebar</li>
 <li>Find the <strong>Permission Mode</strong> setting</li>
 <li>Change it to <strong>"Yolo Mode"</strong> or <strong>"Allow All"</strong></li>
 <li>Close Settings</li>
@@ -113,57 +115,188 @@ It just means Claude won't pause to ask "can I edit this file?" or "can I run th
 
 <hr>
 
-<h2>STEP 4: Test It!</h2>
+<h2>STEP 4: Connect Slack</h2>
 
-<p>Let's make sure everything works.</p>
+<p>This lets Claude send notifications to your Slack channels. No bot setup needed — just a webhook URL.</p>
+
+<h3>One-time setup (done by your team lead once):</h3>
+
+<ol>
+<li>Go to <strong>slack.com/apps</strong> and search for <strong>"Incoming WebHooks"</strong></li>
+<li>Click <strong>Add to Slack</strong></li>
+<li>Pick the <strong>channel</strong> you want messages to go to (e.g., #reports)</li>
+<li>Click <strong>Add Incoming WebHooks Integration</strong></li>
+<li>You'll see a <strong>Webhook URL</strong> — copy it and save it somewhere your team can access</li>
+</ol>
+
+<p><strong>That's it.</strong> One person does this once. Everyone uses the same URL.</p>
+
+<h3>How to use it:</h3>
+
+<p>When telling Claude to send to Slack, just include the webhook URL in your prompt:</p>
+
+<pre><code>Send a summary to Slack using this webhook:
+https://hooks.slack.com/services/PASTE-YOUR-WEBHOOK-URL-HERE</code></pre>
+
+<p>Claude knows how to format and send Slack webhook messages. The message shows up in your channel as a regular notification.</p>
+
+<div class="best-practice">
+<strong>Best practice:</strong> Don't put webhook URLs in public repos — anyone with the URL can post to your channel. Keep it in a private config, environment variable, or just paste it directly in your prompt.
+</div>
+
+<hr>
+
+<h2>STEP 5: Connect Gmail</h2>
+
+<p>Claude can send emails from your own Gmail account. No extra setup needed — just click "Allow" once.</p>
 
 <ol>
 <li>Open the <strong>Claude desktop app</strong></li>
-<li>Open the <strong>code window</strong> — look for the <strong>terminal/code icon</strong> (it may say "Claude Code" or show a <code>&gt;_</code> icon)</li>
-<li>Type something like: <code>What is 2 + 2?</code></li>
-<li>Claude will respond. You should see an answer.</li>
+<li>Ask Claude to send an email (just type it in plain English)</li>
+<li>Claude will ask you to <strong>connect your Google account</strong></li>
+<li>Click <strong>Allow</strong> in the browser popup</li>
+<li>Done — Claude can now read and send emails from your Gmail</li>
+</ol>
+
+<p>The email comes from YOUR Gmail account (your name, your email address). It looks like a normal email you sent.</p>
+
+<blockquote>
+<strong>Troubleshooting</strong><br><br>
+<strong>"Gmail not connected"</strong> → Ask Claude to "send a test email to myself" and it will walk you through reconnecting.<br><br>
+<strong>"Permission denied"</strong> → When the Google popup appears, make sure you check ALL the permission boxes and click "Allow."
+</blockquote>
+
+<hr>
+
+<h2>STEP 6: Try Cowork Mode</h2>
+
+<p>Cowork is Claude's power mode for bigger, multi-step tasks. Instead of just chatting back and forth, Claude actually <strong>plans the work, breaks it into pieces, and executes it</strong> — like having an assistant who goes away, does the work, and comes back with finished results.</p>
+
+<h3>What Cowork is good for:</h3>
+<ul>
+<li>Building a spreadsheet with formulas and data</li>
+<li>Creating a presentation from scratch</li>
+<li>Researching a topic and writing a structured report</li>
+<li>Organizing files or data across multiple steps</li>
+<li>Any task that has multiple steps and takes more than a few minutes</li>
+</ul>
+
+<h3>How to use it:</h3>
+
+<ol>
+<li>Open the <strong>Claude desktop app</strong></li>
+<li>Start a new conversation</li>
+<li>Look for the <strong>Cowork toggle</strong> or select <strong>"Cowork"</strong> as the mode (near the message input)</li>
+<li>Describe what you want — be specific about the end result</li>
+<li>Claude will create a plan, show it to you, then get to work</li>
+<li>When it's done, your files are saved directly to your computer</li>
+</ol>
+
+<h3>Example prompts for Cowork:</h3>
+
+<pre><code>Create an Excel spreadsheet that tracks our team's weekly KPIs.
+Include columns for date, metric name, target, actual, and % achieved.
+Add conditional formatting so anything below target shows red.
+Save it to my Desktop.</code></pre>
+
+<pre><code>Research the top 5 competitors in [our industry] and create a
+comparison table in a Google Doc. Include pricing, key features,
+and pros/cons for each.</code></pre>
+
+<div class="best-practice">
+<strong>Best practice:</strong> Be specific about what you want the output to look like. Instead of "make a report," say "make a 1-page PDF summary with bullet points and a chart." The more specific you are, the better the result.
+</div>
+
+<blockquote>
+<strong>Good to know:</strong><br>
+- Cowork runs tasks in an isolated environment on your computer — your files stay private<br>
+- It uses more tokens than regular chat, so it's best for substantial tasks (not quick questions)<br>
+- It doesn't remember previous Cowork sessions — give it all the context it needs each time
+</blockquote>
+
+<hr>
+
+<h2>STEP 7: Test Everything</h2>
+
+<p>Let's make sure it all works.</p>
+
+<ol>
+<li>Open the <strong>Claude desktop app</strong></li>
+<li>Open the <strong>code window</strong> (look for the terminal/code icon or <code>&gt;_</code> icon)</li>
+<li>Type: <code>What is 2 + 2?</code> — you should get an answer</li>
 </ol>
 
 <p><strong>If you got a response → You're all set!</strong></p>
 
 <blockquote>
 <strong>Troubleshooting</strong><br><br>
-<strong>Don't see the code window icon?</strong> → Make sure you're using the latest version of the Claude desktop app. Try closing and reopening it.<br><br>
-<strong>Getting "not logged in" errors?</strong> → Open Terminal and copy-paste: <code>claude auth login</code> — then press Enter and log in through the browser.
+<strong>Don't see the code window?</strong> → Make sure you have the latest version of the Claude desktop app. Close and reopen it.<br><br>
+<strong>"Not logged in" errors?</strong> → Open Terminal, paste <code>claude auth login</code>, press Enter, and log in through the browser.
 </blockquote>
 
 <hr>
 
 <h2>You're Done!</h2>
 
-<p>That's it. Claude Code is installed and ready to use.</p>
+<p>Everything is set up. Here's what you have:</p>
 
-<p><strong>Day-to-day, you'll use the Claude desktop app's code window.</strong> Just open the app, open the code window, and tell Claude what you need. No Terminal required for everyday use.</p>
+<table>
+<tr><th>What</th><th>How to access it</th></tr>
+<tr><td>Quick questions / code help</td><td>Claude desktop app → code window</td></tr>
+<tr><td>Big multi-step tasks</td><td>Claude desktop app → Cowork mode</td></tr>
+<tr><td>Slack notifications</td><td>Include webhook URL in your prompt</td></tr>
+<tr><td>Send emails</td><td>Just tell Claude who to email</td></tr>
+<tr><td>Scheduled workflows</td><td>See the Scheduled Workflows guide</td></tr>
+</table>
 
-<p><strong>What to do next:</strong></p>
-<ul>
-<li>Keep the <strong>Cheat Sheet</strong> (separate doc) nearby for quick reference</li>
-<li>Check out the <strong>Scheduled Workflows</strong> guide if you need tasks to run automatically</li>
-<li>If something breaks, open Terminal and type <code>claude doctor</code> to diagnose</li>
-</ul>
+<hr>
+
+<h2>Best Practices</h2>
+
+<div class="best-practice">
+<strong>1. Be specific.</strong><br>
+Bad: "Make a report."<br>
+Good: "Create a 1-page summary of this week's sales data with a bar chart comparing regions. Save as PDF to my Desktop."
+</div>
+
+<div class="best-practice">
+<strong>2. Give Claude context.</strong><br>
+Tell Claude what files to look at, what format you want, who the audience is. Claude doesn't remember previous sessions, so give it everything it needs each time.
+</div>
+
+<div class="best-practice">
+<strong>3. Use Cowork for big tasks, code window for small ones.</strong><br>
+Quick question or code fix? → Code window.<br>
+Multi-step project with deliverables? → Cowork mode.
+</div>
+
+<div class="best-practice">
+<strong>4. Use CLAUDE.md for shared team instructions.</strong><br>
+If your team works on a shared project/repo, your team lead can create a <code>CLAUDE.md</code> file in the project root. Claude reads this automatically and follows those instructions. Great for things like "always use this format" or "never change files in /config."
+</div>
+
+<div class="best-practice">
+<strong>5. Start fresh when switching tasks.</strong><br>
+If you're moving to a totally different task, start a new conversation. Long conversations with mixed topics confuse Claude.
+</div>
 
 <hr>
 
 <h2>FAQ</h2>
 
 <p><strong>Q: Do I use the desktop app or Terminal?</strong><br>
-A: Use the <strong>desktop app</strong> for everyday work. It has a built-in code window that does the same thing as Terminal but is easier. You only need Terminal for the initial install.</p>
+A: Use the <strong>desktop app</strong> for everyday work. You only need Terminal for the initial install and scheduled workflows.</p>
+
+<p><strong>Q: What's the difference between the code window and Cowork?</strong><br>
+A: The code window is for quick, back-and-forth conversations (like chatting). Cowork is for bigger tasks where Claude goes away, does the work, and delivers finished files.</p>
 
 <p><strong>Q: Will this slow down my computer?</strong><br>
 A: No. It only uses resources while you're actively using it.</p>
 
-<p><strong>Q: Do I need to update it?</strong><br>
-A: It updates automatically.</p>
-
-<p><strong>Q: Is this the same Claude as the website?</strong><br>
-A: Yes, same AI. But Claude Code can read and edit files on your computer, run commands, and interact with code — the website version can't do that.</p>
+<p><strong>Q: Does Claude remember my previous conversations?</strong><br>
+A: No. Each conversation starts fresh. Always give Claude the context it needs. (Exception: if your team uses a CLAUDE.md file, Claude reads that every time.)</p>
 
 <p><strong>Q: How much does it cost?</strong><br>
-A: It's included with your Claude Pro/Max subscription. If your team uses API keys, your team lead manages the budget.</p>
+A: It's included with your Claude Pro/Max subscription. Cowork uses more tokens than regular chat. If your team uses API keys, your team lead manages the budget.</p>
 
 </body></html>
