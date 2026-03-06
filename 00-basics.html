@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>
+body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; line-height: 1.6; color: #333; }
+h1 { font-size: 28px; border-bottom: 2px solid #333; padding-bottom: 8px; }
+h2 { font-size: 22px; margin-top: 40px; color: #1a1a1a; border-bottom: 1px solid #ccc; padding-bottom: 4px; }
+h3 { font-size: 18px; margin-top: 24px; }
+code { background: #f0f0f0; padding: 2px 6px; border-radius: 3px; font-family: Courier New, monospace; font-size: 14px; }
+pre { background: #f5f5f5; border: 1px solid #ddd; border-radius: 6px; padding: 16px; overflow-x: auto; }
+pre code { background: none; padding: 0; }
+blockquote { border-left: 4px solid #e0a000; background: #fffbe6; padding: 12px 16px; margin: 16px 0; border-radius: 0 6px 6px 0; }
+blockquote strong { color: #b8860b; }
+table { border-collapse: collapse; width: 100%; margin: 16px 0; }
+th, td { border: 1px solid #ccc; padding: 10px 14px; text-align: left; }
+th { background: #f0f0f0; font-weight: bold; }
+ol, ul { padding-left: 24px; }
+li { margin-bottom: 6px; }
+hr { border: none; border-top: 1px solid #ddd; margin: 30px 0; }
+.note { background: #e8f4fd; border-left: 4px solid #2196F3; padding: 12px 16px; margin: 16px 0; border-radius: 0 6px 6px 0; }
+nav { background: #f8f8f8; border-bottom: 1px solid #ddd; padding: 12px 0; margin: -40px -20px 30px -20px; text-align: center; }
+nav a { color: #555; text-decoration: none; margin: 0 16px; font-size: 14px; font-weight: 500; }
+nav a:hover { color: #000; }
+nav a.active { color: #d97706; font-weight: bold; border-bottom: 2px solid #d97706; padding-bottom: 2px; }
+.section-nav { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 12px 16px; margin-bottom: 30px; display: flex; flex-wrap: wrap; gap: 6px 4px; justify-content: center; }
+.section-nav a { color: #555; text-decoration: none; font-size: 13px; padding: 4px 10px; border-radius: 20px; background: #f5f5f5; white-space: nowrap; transition: background 0.2s, color 0.2s; }
+.section-nav a:hover { background: #d97706; color: #fff; }
+.section-nav .nav-label { font-size: 12px; font-weight: bold; color: #999; text-transform: uppercase; letter-spacing: 0.5px; padding: 4px 4px 4px 0; }
+</style>
+</head><body>
+
+<nav>
+<a href="index.html">Home</a>
+<a href="00-basics.html" class="active">Basics</a>
+<a href="01-setup-guide.html">Setup Guide</a>
+<a href="02-scheduled-workflows.html">Scheduled Workflows</a>
+<a href="03-cheat-sheet.html">Cheat Sheet</a>
+</nav>
+
+<h1>Claude Code — The Basics</h1>
+
+<p class="subtitle" style="color: #666; font-size: 16px; margin-top: -8px;">Read this first. It explains what everything is in plain English.</p>
+
+<div class="section-nav">
+<span class="nav-label">Jump to:</span>
+<a href="#glossary">Glossary</a>
+<a href="#ways-to-use">Ways to Use Claude</a>
+<a href="#files">How Claude Accesses Files</a>
+<a href="#connectors">How Connectors Work</a>
+<a href="#chrome">Claude in Chrome</a>
+</div>
+
+<hr>
+
+<h2 id="glossary">Glossary</h2>
+
+<p>Here's what all the terms mean — in plain English.</p>
+
+<table>
+<tr><th>Term</th><th>What it means</th></tr>
+<tr>
+<td><strong>Claude</strong></td>
+<td>The AI. Same one as the website (claude.ai). It can answer questions, write things, analyze data, etc.</td>
+</tr>
+<tr>
+<td><strong>Claude Desktop App</strong></td>
+<td>The app you install on your Mac. It has three tabs: <strong>Chat</strong> (regular conversation), <strong>Code</strong> (Claude Code), and <strong>Cowork</strong> (big tasks). Think of it as your home base.</td>
+</tr>
+<tr>
+<td><strong>Claude Code</strong></td>
+<td>A version of Claude that can <strong>see and edit files on your computer</strong>, run commands, and take actions — not just chat. It's like giving Claude hands. You access it through the Code tab in the desktop app, or through Terminal.</td>
+</tr>
+<tr>
+<td><strong>Claude in Chrome</strong></td>
+<td>A <strong>Chrome browser extension</strong> that lets Claude control your browser — click buttons, fill forms, read web pages, and take actions on websites you're logged into. Great for automating repetitive web tasks. See the <a href="#chrome">full section below</a>.</td>
+</tr>
+<tr>
+<td><strong>Terminal</strong></td>
+<td>A text-based app built into your Mac. You type commands and the computer does things. You only need it once (for install). After that, the desktop app handles everything.</td>
+</tr>
+<tr>
+<td><strong>Connectors / MCP</strong></td>
+<td>MCP stands for "Model Context Protocol" — but all you need to know is: <strong>connectors let Claude talk to other apps</strong> (Slack, Gmail, Google Drive, etc.). You set them up in Settings and then Claude can read/send Slack messages, emails, etc. Think of them as plugins.</td>
+</tr>
+<tr>
+<td><strong>Cowork</strong></td>
+<td>A mode in the desktop app for bigger, multi-step tasks. Instead of chatting back and forth, Claude <strong>plans the work, executes it, and delivers finished files</strong>. Good for spreadsheets, reports, presentations, research.</td>
+</tr>
+<tr>
+<td><strong>CLAUDE.md</strong></td>
+<td>A text file you can put in a project folder with permanent instructions for Claude. Claude reads it automatically every time. Like a "sticky note" that says "always do X" or "never change Y."</td>
+</tr>
+<tr>
+<td><strong>GitHub Actions</strong></td>
+<td>A free service from GitHub that runs tasks on a schedule (daily, hourly, etc.) on GitHub's servers — even when your computer is off. This is how scheduled workflows work.</td>
+</tr>
+<tr>
+<td><strong>Cron Job (cron-job.org)</strong></td>
+<td>A <strong>free website</strong> (<a href="https://cron-job.org">cron-job.org</a>) that automatically visits a URL on a schedule you set — every minute, every hour, daily, etc. It runs on their servers, so it works even when your computer is off. An alternative to GitHub Actions for running scheduled tasks.</td>
+</tr>
+</table>
+
+<hr>
+
+<h2 id="ways-to-use">Ways to Use Claude</h2>
+
+<p>There are several ways to use Claude. Here's a quick overview so you know which is which.</p>
+
+<table>
+<tr><th>Tool</th><th>What it's for</th><th>How to access it</th></tr>
+<tr>
+<td><strong>Chat tab</strong></td>
+<td>Regular conversation — ask questions, brainstorm, get writing help</td>
+<td>Claude desktop app → <strong>Chat</strong> tab</td>
+</tr>
+<tr>
+<td><strong>Code tab</strong></td>
+<td>Claude can see your files, edit them, and run commands</td>
+<td>Claude desktop app → <strong>Code</strong> tab</td>
+</tr>
+<tr>
+<td><strong>Cowork tab</strong></td>
+<td>Big multi-step tasks — Claude plans and delivers finished work</td>
+<td>Claude desktop app → <strong>Cowork</strong> tab</td>
+</tr>
+<tr>
+<td><strong>Claude in Chrome</strong></td>
+<td>Claude controls your browser — fills forms, clicks, reads web pages</td>
+<td>Chrome extension + Code tab (see <a href="#chrome">below</a>)</td>
+</tr>
+<tr>
+<td><strong>claude.ai</strong></td>
+<td>Same as Chat tab, but in your web browser — no install needed</td>
+<td>Go to <strong>claude.ai</strong> in any browser</td>
+</tr>
+</table>
+
+<hr>
+
+<h2 id="files">How Does Claude Access My Files?</h2>
+
+<p>When you use the <strong>Code tab</strong> or <strong>Cowork</strong>, Claude can see the files and folders on your computer — but <strong>only the ones you point it to</strong>. It works like this:</p>
+
+<ul>
+<li>You open the Code tab and navigate to a folder (e.g., your project on the Desktop)</li>
+<li>Claude can read, create, and edit files <strong>inside that folder</strong></li>
+<li>Claude can also run commands (like scripts or installs) on your computer</li>
+<li>It does NOT have access to your entire computer by default — just the folder you're working in</li>
+<li>Everything runs locally on your Mac — your files are not uploaded to the internet</li>
+</ul>
+
+<hr>
+
+<h2 id="connectors">How Do Connectors (MCP) Work?</h2>
+
+<p>Connectors are how Claude talks to other apps. Here's the simple version:</p>
+
+<ul>
+<li>You go to Settings → Connectors and turn on the ones you want (Slack, Gmail, etc.)</li>
+<li>Each connector asks you to log in once (click "Allow" in your browser)</li>
+<li>After that, Claude can use that app — send Slack messages, read emails, etc.</li>
+<li>Claude can only access what <strong>your account</strong> has access to (e.g., Slack channels you're in)</li>
+<li>You can turn off any connector at any time in Settings</li>
+</ul>
+
+<hr>
+
+<h2 id="chrome">Claude in Chrome</h2>
+
+<p>Claude in Chrome is a <strong>browser extension</strong> that lets Claude see and interact with websites in your Chrome browser. Think of it as giving Claude eyes and hands for the web.</p>
+
+<h3>What can Claude in Chrome do?</h3>
+
+<ul>
+<li><strong>Read web pages</strong> — Claude can see what's on any page you have open</li>
+<li><strong>Fill out forms</strong> — tell Claude what to enter and it fills in the fields</li>
+<li><strong>Click buttons and links</strong> — Claude can navigate websites for you</li>
+<li><strong>Use sites you're logged into</strong> — since it uses your browser, it has access to any site where you're already signed in (Google Docs, Notion, internal tools, etc.)</li>
+<li><strong>Extract data from pages</strong> — pull information from websites and save it</li>
+<li><strong>Automate repetitive tasks</strong> — like data entry across multiple pages</li>
+</ul>
+
+<h3>How to set it up:</h3>
+
+<ol>
+<li>Open <strong>Google Chrome</strong> (or Microsoft Edge)</li>
+<li>Go to the <a href="https://chromewebstore.google.com/detail/claude/fcoeoabgfenejglbffodgkkbkcdhcgfn">Claude in Chrome extension page</a> in the Chrome Web Store</li>
+<li>Click <strong>"Add to Chrome"</strong></li>
+<li>Click <strong>"Add extension"</strong> in the popup</li>
+<li>You'll see the Claude icon appear in your browser toolbar — you're done!</li>
+</ol>
+
+<h3>How to use it:</h3>
+
+<p>Once the extension is installed, you can use it from the <strong>Code tab</strong> in the Claude desktop app. Just tell Claude what you want it to do in the browser:</p>
+
+<pre><code>Open google.com and search for "quarterly revenue report template"</code></pre>
+
+<pre><code>Go to my Google Sheet and add a new row with today's date and these numbers: 150, 230, 85</code></pre>
+
+<pre><code>Look at the page I have open in Chrome and summarize what it says</code></pre>
+
+<div class="note">
+<strong>Good to know:</strong><br>
+<ul>
+<li>Claude in Chrome uses your existing browser logins — no need to re-authenticate anywhere</li>
+<li>It works with Chrome and Microsoft Edge (not Safari or Firefox)</li>
+<li>You need a paid Claude plan (Pro or Max) to use it</li>
+<li>If Claude hits a login page or CAPTCHA, it will pause and ask you to handle it</li>
+</ul>
+</div>
+
+<blockquote>
+<strong>When should I use Claude in Chrome vs. the desktop app?</strong><br><br>
+Use <strong>Claude in Chrome</strong> when you need Claude to interact with websites — filling forms, reading web pages, automating browser tasks.<br><br>
+Use the <strong>desktop app</strong> (Code/Cowork tabs) when you're working with files on your computer — editing documents, running scripts, building reports.
+</blockquote>
+
+</body></html>

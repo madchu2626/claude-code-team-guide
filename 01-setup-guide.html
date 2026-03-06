@@ -32,6 +32,7 @@ nav a.active { color: #d97706; font-weight: bold; border-bottom: 2px solid #d977
 
 <nav>
 <a href="index.html">Home</a>
+<a href="00-basics.html">Basics</a>
 <a href="01-setup-guide.html" class="active">Setup Guide</a>
 <a href="02-scheduled-workflows.html">Scheduled Workflows</a>
 <a href="03-cheat-sheet.html">Cheat Sheet</a>
@@ -41,92 +42,26 @@ nav a.active { color: #d97706; font-weight: bold; border-bottom: 2px solid #d977
 
 <div class="section-nav">
 <span class="nav-label">Jump to:</span>
-<a href="#key-concepts">Key Concepts</a>
 <a href="#before-you-start">Before You Start</a>
 <a href="#step-1">Step 1: Desktop App</a>
 <a href="#step-2">Step 2: Install</a>
 <a href="#step-3">Step 3: Permissions</a>
-<a href="#step-4">Step 4: Slack</a>
-<a href="#step-5">Step 5: Gmail</a>
-<a href="#step-6">Step 6: Cowork</a>
-<a href="#step-7">Step 7: Test</a>
+<a href="#step-4">Step 4: Chrome Extension</a>
+<a href="#step-5">Step 5: Slack</a>
+<a href="#step-6">Step 6: Gmail</a>
+<a href="#step-7">Step 7: Cowork</a>
+<a href="#step-8">Step 8: Test</a>
 <a href="#best-practices">Best Practices</a>
 <a href="#faq">FAQ</a>
 </div>
 
 <div class="note">
-<strong>Read this first:</strong> This guide walks you through everything step by step. Follow each step exactly. Don't skip ahead. If something goes wrong, check the "Troubleshooting" box after each section.
+<strong>New to Claude?</strong> Start with the <a href="00-basics.html"><strong>Basics</strong></a> page first — it explains what everything is in plain English.
 </div>
 
-<hr>
-
-<h2 id="key-concepts">Key Concepts (Read This First)</h2>
-
-<p>Before jumping into setup, here's a quick glossary so nothing below is confusing.</p>
-
-<table>
-<tr><th>Term</th><th>What it means (in plain English)</th></tr>
-<tr>
-<td><strong>Claude</strong></td>
-<td>The AI. Same one as the website (claude.ai). It can answer questions, write things, analyze data, etc.</td>
-</tr>
-<tr>
-<td><strong>Claude Desktop App</strong></td>
-<td>The app you install on your Mac. It has three tabs: <strong>Chat</strong> (regular conversation), <strong>Code</strong> (Claude Code), and <strong>Cowork</strong> (big tasks). Think of it as your home base.</td>
-</tr>
-<tr>
-<td><strong>Claude Code</strong></td>
-<td>A version of Claude that can <strong>see and edit files on your computer</strong>, run commands, and take actions — not just chat. It's like giving Claude hands. You access it through the Code tab in the desktop app, or through Terminal.</td>
-</tr>
-<tr>
-<td><strong>Terminal</strong></td>
-<td>A text-based app built into your Mac. You type commands and the computer does things. You only need it once (for install). After that, the desktop app handles everything.</td>
-</tr>
-<tr>
-<td><strong>Connectors / MCP</strong></td>
-<td>MCP stands for "Model Context Protocol" — but all you need to know is: <strong>connectors let Claude talk to other apps</strong> (Slack, Gmail, Google Drive, etc.). You set them up in Settings and then Claude can read/send Slack messages, emails, etc. Think of them as plugins.</td>
-</tr>
-<tr>
-<td><strong>Cowork</strong></td>
-<td>A mode in the desktop app for bigger, multi-step tasks. Instead of chatting back and forth, Claude <strong>plans the work, executes it, and delivers finished files</strong>. Good for spreadsheets, reports, presentations, research.</td>
-</tr>
-<tr>
-<td><strong>CLAUDE.md</strong></td>
-<td>A text file you can put in a project folder with permanent instructions for Claude. Claude reads it automatically every time. Like a "sticky note" that says "always do X" or "never change Y."</td>
-</tr>
-<tr>
-<td><strong>GitHub Actions</strong></td>
-<td>A free service from GitHub that runs tasks on a schedule (daily, hourly, etc.) on GitHub's servers — even when your computer is off. This is how scheduled workflows work.</td>
-</tr>
-<tr>
-<td><strong>Cron Job (cron-job.org)</strong></td>
-<td>A <strong>free website</strong> (<a href="https://cron-job.org">cron-job.org</a>) that automatically visits a URL on a schedule you set — every minute, every hour, daily, etc. It runs on their servers, so it works even when your computer is off. Think of it as setting a timer that pings a web address for you. An alternative to GitHub Actions for running scheduled tasks.</td>
-</tr>
-</table>
-
-<h3>How does Claude access my files?</h3>
-
-<p>When you use the <strong>Code tab</strong> or <strong>Cowork</strong>, Claude can see the files and folders on your computer — but <strong>only the ones you point it to</strong>. It works like this:</p>
-
-<ul>
-<li>You open the Code tab and navigate to a folder (e.g., your project on the Desktop)</li>
-<li>Claude can read, create, and edit files <strong>inside that folder</strong></li>
-<li>Claude can also run commands (like scripts or installs) on your computer</li>
-<li>It does NOT have access to your entire computer by default — just the folder you're working in</li>
-<li>Everything runs locally on your Mac — your files are not uploaded to the internet</li>
-</ul>
-
-<h3>How do connectors (MCP) work?</h3>
-
-<p>Connectors are how Claude talks to other apps. Here's the simple version:</p>
-
-<ul>
-<li>You go to Settings → Connectors and turn on the ones you want (Slack, Gmail, etc.)</li>
-<li>Each connector asks you to log in once (click "Allow" in your browser)</li>
-<li>After that, Claude can use that app — send Slack messages, read emails, etc.</li>
-<li>Claude can only access what <strong>your account</strong> has access to (e.g., Slack channels you're in)</li>
-<li>You can turn off any connector at any time in Settings</li>
-</ul>
+<div class="note">
+<strong>Read this first:</strong> This guide walks you through everything step by step. Follow each step exactly. Don't skip ahead. If something goes wrong, check the "Troubleshooting" box after each section.
+</div>
 
 <hr>
 
@@ -215,7 +150,33 @@ It just means Claude won't pause to ask "can I edit this file?" or "can I run th
 
 <hr>
 
-<h2 id="step-4">STEP 4: Set Up Slack Notifications</h2>
+<h2 id="step-4">STEP 4: Install Claude in Chrome</h2>
+
+<p>Claude in Chrome is a browser extension that lets Claude <strong>see and control websites</strong> in your Chrome browser — click buttons, fill forms, read pages, and automate web tasks.</p>
+
+<ol>
+<li>Open <strong>Google Chrome</strong> (or Microsoft Edge)</li>
+<li>Go to the <a href="https://chromewebstore.google.com/detail/claude/fcoeoabgfenejglbffodgkkbkcdhcgfn"><strong>Claude in Chrome</strong> extension page</a></li>
+<li>Click <strong>"Add to Chrome"</strong></li>
+<li>Click <strong>"Add extension"</strong> in the popup</li>
+<li>You'll see the Claude icon appear in your browser toolbar — done!</li>
+</ol>
+
+<p>Once installed, you can tell Claude to interact with websites from the Code tab:</p>
+
+<pre><code>Go to my Google Sheet and add a new row with today's date and these numbers: 150, 230, 85</code></pre>
+
+<blockquote>
+<strong>Good to know:</strong><br>
+- Claude in Chrome uses your existing browser logins — no need to re-authenticate<br>
+- Works with Chrome and Edge (not Safari or Firefox)<br>
+- If Claude hits a login page or CAPTCHA, it will pause and ask you to handle it<br>
+- For a full overview, see the <a href="00-basics.html#chrome">Basics page</a>
+</blockquote>
+
+<hr>
+
+<h2 id="step-5">STEP 5: Set Up Slack Notifications</h2>
 
 <p>You do <strong>NOT</strong> need to create a Slack app or bot. Here are two easy options.</p>
 
@@ -253,7 +214,7 @@ It just means Claude won't pause to ask "can I edit this file?" or "can I run th
 
 <hr>
 
-<h2 id="step-5">STEP 5: Set Up Gmail</h2>
+<h2 id="step-6">STEP 6: Set Up Gmail</h2>
 
 <p>Claude can send emails from your own Gmail account. You need to connect the Gmail connector first.</p>
 
@@ -283,7 +244,7 @@ It just means Claude won't pause to ask "can I edit this file?" or "can I run th
 
 <hr>
 
-<h2 id="step-6">STEP 6: Try Cowork Mode</h2>
+<h2 id="step-7">STEP 7: Try Cowork Mode</h2>
 
 <p>Cowork is Claude's mode for bigger, multi-step tasks. Instead of just chatting back and forth, Claude <strong>plans the work, breaks it into pieces, and executes it</strong> — like having an assistant who goes away, does the work, and comes back with finished results.</p>
 
@@ -329,7 +290,7 @@ and pros/cons for each.</code></pre>
 
 <hr>
 
-<h2 id="step-7">STEP 7: Test Everything</h2>
+<h2 id="step-8">STEP 8: Test Everything</h2>
 
 <p>Let's make sure it all works.</p>
 
@@ -357,6 +318,7 @@ and pros/cons for each.</code></pre>
 <tr><th>What</th><th>How to access it</th></tr>
 <tr><td>Quick questions / code help</td><td>Claude desktop app → <strong>Code</strong> tab</td></tr>
 <tr><td>Big multi-step tasks</td><td>Claude desktop app → <strong>Cowork</strong> tab</td></tr>
+<tr><td>Browser automation</td><td>Claude in Chrome extension + Code tab</td></tr>
 <tr><td>Slack notifications</td><td>Slack connector or webhook</td></tr>
 <tr><td>Send emails</td><td>Gmail connector — just tell Claude who to email</td></tr>
 <tr><td>Scheduled workflows</td><td>See the Scheduled Workflows guide</td></tr>
