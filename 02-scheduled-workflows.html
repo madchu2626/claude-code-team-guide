@@ -41,7 +41,7 @@ nav a.active { color: #d97706; font-weight: bold; border-bottom: 2px solid #d977
 <a href="#prompt-1">Prompt 1: Setup</a>
 <a href="#prompt-2">Prompt 2: Customize</a>
 <a href="#prompt-3">Prompt 3: Schedule</a>
-<a href="#prompt-4">Prompt 4: Cron Job</a>
+<a href="#prompt-4">Prompt 4: cron-job.org</a>
 <a href="#prompt-5">Prompt 5: Show Setup</a>
 <a href="#prompt-6">Prompt 6: Fix Issues</a>
 <a href="#decision-guide">Decision Guide</a>
@@ -64,8 +64,8 @@ nav a.active { color: #d97706; font-weight: bold; border-bottom: 2px solid #d977
 <td>Runs tasks on a schedule on GitHub's servers — works even when your computer is off. <strong>Best for most people.</strong></td>
 </tr>
 <tr>
-<td><strong>Cron Job</strong></td>
-<td>Runs tasks on a schedule on <strong>your Mac</strong> — but only when your computer is on and awake. If your Mac is asleep or off, it skips that run. Use this if you don't want to deal with GitHub.</td>
+<td><strong>Cron Job (cron-job.org)</strong></td>
+<td>A <strong>free website</strong> (<a href="https://cron-job.org">cron-job.org</a>) that visits a URL on a schedule you set. Runs on their servers — works even when your computer is off. An alternative to GitHub Actions.</td>
 </tr>
 <tr>
 <td><strong>Workflow</strong></td>
@@ -165,28 +165,35 @@ Keep it simple and add a budget limit of $2 per run.</code></pre>
 
 <hr>
 
-<h2 id="prompt-4">PROMPT 4: "Set up a local cron job instead"</h2>
+<h2 id="prompt-4">PROMPT 4: "Set up a cron job using cron-job.org instead"</h2>
 
-<p>If you want something to run on YOUR computer (not on GitHub), use this:</p>
+<p>If you don't want to use GitHub Actions, <a href="https://cron-job.org">cron-job.org</a> is a free alternative. It visits a URL on a schedule you set — runs on their servers, so it works even when your computer is off.</p>
 
-<pre><code>I want to set up a cron job on my Mac that runs automatically on a schedule.
+<p><strong>How to set it up:</strong></p>
 
-Here's what I want:
-- Every day at 9am, run Claude Code with this task: "[DESCRIBE YOUR TASK HERE]"
-- Save the output to a log file so I can check it later
-- Make sure my API key is loaded properly
-- Use the --dangerously-skip-permissions flag so it doesn't get stuck waiting for approval
+<ol>
+<li>Go to <strong><a href="https://cron-job.org">cron-job.org</a></strong> and create a free account</li>
+<li>Click <strong>"Create cronjob"</strong></li>
+<li>Enter the URL you want it to visit on a schedule (e.g., a webhook, an API endpoint, or a script URL)</li>
+<li>Set your schedule (every minute, hourly, daily, etc.)</li>
+<li>Save — that's it. It will automatically hit that URL at the times you set.</li>
+</ol>
 
-Set this up for me step by step. Explain what a cron job is in simple terms. Show me how to check if it's running and how to stop it if I need to.
+<p>If you're not sure what URL to use, paste this into Claude Code:</p>
 
-Important: I'm not a developer, so please explain everything in plain English.</code></pre>
+<pre><code>I want to set up a scheduled task using cron-job.org instead of GitHub Actions.
+
+Here's what I want the task to do: "[DESCRIBE YOUR TASK HERE]"
+
+Help me create an endpoint or webhook URL that cron-job.org can call on a schedule.
+Explain everything in plain English — I'm not a developer.</code></pre>
 
 <blockquote>
-<strong>Note about cron jobs:</strong><br>
-- Your computer needs to be ON and AWAKE for cron jobs to run<br>
-- If your Mac is asleep or off at the scheduled time, it will skip that run<br>
-- GitHub Actions (Prompts 1-3 above) run on GitHub's servers, so they work even when your computer is off<br>
-- <strong>For most people, GitHub Actions is the better choice</strong>
+<strong>cron-job.org vs GitHub Actions:</strong><br>
+- Both run on the cloud (works even when your computer is off)<br>
+- cron-job.org is simpler to set up — just a URL and a schedule<br>
+- GitHub Actions is more powerful and integrated with your code/repo<br>
+- <strong>Either works — pick whichever feels easier for you</strong>
 </blockquote>
 
 <hr>
@@ -221,11 +228,12 @@ Explain everything simply — I'm not a developer.</code></pre>
 
 <table>
 <tr><th>I want the task to run...</th><th>Use this</th></tr>
-<tr><td>Even when my computer is off</td><td>GitHub Actions (Prompt 1)</td></tr>
-<tr><td>Only when my computer is on</td><td>Cron job (Prompt 4)</td></tr>
+<tr><td>Even when my computer is off</td><td>Either — both run in the cloud</td></tr>
 <tr><td>Once a day</td><td>Either works</td></tr>
 <tr><td>Every few minutes</td><td>GitHub Actions (Prompt 1)</td></tr>
-<tr><td>And I don't want to deal with GitHub</td><td>Cron job (Prompt 4)</td></tr>
+<tr><td>Simplest possible setup</td><td>cron-job.org (Prompt 4)</td></tr>
+<tr><td>Integrated with my code/repo</td><td>GitHub Actions (Prompt 1)</td></tr>
+<tr><td>Don't want to deal with GitHub</td><td>cron-job.org (Prompt 4)</td></tr>
 </table>
 
 <hr>
