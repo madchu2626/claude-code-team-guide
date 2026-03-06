@@ -30,6 +30,72 @@ hr { border: none; border-top: 1px solid #ddd; margin: 30px 0; }
 
 <hr>
 
+<h2>Key Concepts (Read This First)</h2>
+
+<p>Before jumping into setup, here's a quick glossary so nothing below is confusing.</p>
+
+<table>
+<tr><th>Term</th><th>What it means (in plain English)</th></tr>
+<tr>
+<td><strong>Claude</strong></td>
+<td>The AI. Same one as the website (claude.ai). It can answer questions, write things, analyze data, etc.</td>
+</tr>
+<tr>
+<td><strong>Claude Desktop App</strong></td>
+<td>The app you install on your Mac. It has three tabs: <strong>Chat</strong> (regular conversation), <strong>Code</strong> (Claude Code), and <strong>Cowork</strong> (big tasks). Think of it as your home base.</td>
+</tr>
+<tr>
+<td><strong>Claude Code</strong></td>
+<td>A version of Claude that can <strong>see and edit files on your computer</strong>, run commands, and take actions — not just chat. It's like giving Claude hands. You access it through the Code tab in the desktop app, or through Terminal.</td>
+</tr>
+<tr>
+<td><strong>Terminal</strong></td>
+<td>A text-based app built into your Mac. You type commands and the computer does things. You only need it once (for install). After that, the desktop app handles everything.</td>
+</tr>
+<tr>
+<td><strong>Connectors / MCP</strong></td>
+<td>MCP stands for "Model Context Protocol" — but all you need to know is: <strong>connectors let Claude talk to other apps</strong> (Slack, Gmail, Google Drive, etc.). You set them up in Settings and then Claude can read/send Slack messages, emails, etc. Think of them as plugins.</td>
+</tr>
+<tr>
+<td><strong>Cowork</strong></td>
+<td>A mode in the desktop app for bigger, multi-step tasks. Instead of chatting back and forth, Claude <strong>plans the work, executes it, and delivers finished files</strong>. Good for spreadsheets, reports, presentations, research.</td>
+</tr>
+<tr>
+<td><strong>CLAUDE.md</strong></td>
+<td>A text file you can put in a project folder with permanent instructions for Claude. Claude reads it automatically every time. Like a "sticky note" that says "always do X" or "never change Y."</td>
+</tr>
+<tr>
+<td><strong>GitHub Actions</strong></td>
+<td>A free service from GitHub that runs tasks on a schedule (daily, hourly, etc.) on GitHub's servers — even when your computer is off. This is how scheduled workflows work.</td>
+</tr>
+</table>
+
+<h3>How does Claude access my files?</h3>
+
+<p>When you use the <strong>Code tab</strong> or <strong>Cowork</strong>, Claude can see the files and folders on your computer — but <strong>only the ones you point it to</strong>. It works like this:</p>
+
+<ul>
+<li>You open the Code tab and navigate to a folder (e.g., your project on the Desktop)</li>
+<li>Claude can read, create, and edit files <strong>inside that folder</strong></li>
+<li>Claude can also run commands (like scripts or installs) on your computer</li>
+<li>It does NOT have access to your entire computer by default — just the folder you're working in</li>
+<li>Everything runs locally on your Mac — your files are not uploaded to the internet</li>
+</ul>
+
+<h3>How do connectors (MCP) work?</h3>
+
+<p>Connectors are how Claude talks to other apps. Here's the simple version:</p>
+
+<ul>
+<li>You go to Settings → Connectors and turn on the ones you want (Slack, Gmail, etc.)</li>
+<li>Each connector asks you to log in once (click "Allow" in your browser)</li>
+<li>After that, Claude can use that app — send Slack messages, read emails, etc.</li>
+<li>Claude can only access what <strong>your account</strong> has access to (e.g., Slack channels you're in)</li>
+<li>You can turn off any connector at any time in Settings</li>
+</ul>
+
+<hr>
+
 <h2>Before You Start</h2>
 
 <p>You need:</p>
