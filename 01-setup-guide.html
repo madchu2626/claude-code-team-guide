@@ -43,7 +43,7 @@ hr { border: none; border-top: 1px solid #ddd; margin: 30px 0; }
 
 <h2>STEP 1: Download the Claude Desktop App</h2>
 
-<p>The Claude desktop app is the main way you'll use Claude. It has a built-in <strong>code window</strong> for Claude Code and a <strong>Cowork mode</strong> for bigger tasks — all without needing Terminal.</p>
+<p>The Claude desktop app is the main way you'll use Claude. It has a <strong>Code tab</strong> for Claude Code and a <strong>Cowork tab</strong> for bigger tasks — all without needing Terminal.</p>
 
 <ol>
 <li>Go to <strong>claude.ai/download</strong> in your web browser</li>
@@ -101,9 +101,9 @@ It will ask for your Mac password. Type it (you won't see the letters — that's
 <li>Click <strong>Claude</strong> in the top menu bar (next to the Apple logo)</li>
 <li>Click <strong>Settings...</strong></li>
 <li>Click <strong>"Claude Code"</strong> in the settings sidebar</li>
-<li>Find the <strong>Permission Mode</strong> setting</li>
-<li>Change it to <strong>"Yolo Mode"</strong> or <strong>"Allow All"</strong></li>
+<li>Find <strong>"Allow bypass permissions mode"</strong> and turn it <strong>ON</strong></li>
 <li>Close Settings</li>
+<li>Now when you use the Code tab, look for the <strong>"Bypass permissions"</strong> option next to the send button and select it</li>
 </ol>
 
 <p><strong>That's it.</strong> Claude Code will now work smoothly without stopping to ask permission for every action.</p>
@@ -115,54 +115,71 @@ It just means Claude won't pause to ask "can I edit this file?" or "can I run th
 
 <hr>
 
-<h2>STEP 4: Connect Slack</h2>
+<h2>STEP 4: Set Up Slack Notifications</h2>
 
-<p>This lets Claude send notifications to your Slack channels. No bot setup needed — just a webhook URL.</p>
+<p>There are two ways to get Claude to send Slack messages. Pick whichever is easier for you.</p>
 
-<h3>One-time setup (done by your team lead once):</h3>
+<h3>Option A: Slack MCP Connector (recommended if available)</h3>
 
+<p>If your Claude desktop app shows a <strong>Connectors</strong> section in Settings:</p>
+<ol>
+<li>Open <strong>Settings</strong> in the Claude desktop app</li>
+<li>Look for <strong>Connectors</strong> or <strong>MCP Servers</strong></li>
+<li>Find and enable the <strong>Slack</strong> connector</li>
+<li>Authorize with your Slack workspace when prompted</li>
+<li>Once connected, just tell Claude "send a message to #channel" in plain English</li>
+</ol>
+
+<h3>Option B: Slack Webhook (simple, always works)</h3>
+
+<p>A webhook is a special URL. When Claude sends a message to that URL, it shows up in your Slack channel.</p>
+
+<p><strong>One-time setup (done by your team lead once):</strong></p>
 <ol>
 <li>Go to <strong>slack.com/apps</strong> and search for <strong>"Incoming WebHooks"</strong></li>
 <li>Click <strong>Add to Slack</strong></li>
-<li>Pick the <strong>channel</strong> you want messages to go to (e.g., #reports)</li>
+<li>Pick the <strong>channel</strong> (e.g., #reports)</li>
 <li>Click <strong>Add Incoming WebHooks Integration</strong></li>
-<li>You'll see a <strong>Webhook URL</strong> — copy it and save it somewhere your team can access</li>
+<li>Copy the <strong>Webhook URL</strong> and save it somewhere your team can access</li>
 </ol>
 
-<p><strong>That's it.</strong> One person does this once. Everyone uses the same URL.</p>
+<p>Then tell Claude to send via the webhook using a curl command in your prompt:</p>
 
-<h3>How to use it:</h3>
+<pre><code>After generating the report, send a summary to our Slack channel by running this curl command with the results:
 
-<p>When telling Claude to send to Slack, just include the webhook URL in your prompt:</p>
-
-<pre><code>Send a summary to Slack using this webhook:
-https://hooks.slack.com/services/PASTE-YOUR-WEBHOOK-URL-HERE</code></pre>
-
-<p>Claude knows how to format and send Slack webhook messages. The message shows up in your channel as a regular notification.</p>
+curl -X POST -H 'Content-type: application/json' --data '{"text":"YOUR SUMMARY HERE"}' https://hooks.slack.com/services/PASTE-YOUR-WEBHOOK-URL-HERE</code></pre>
 
 <div class="best-practice">
-<strong>Best practice:</strong> Don't put webhook URLs in public repos — anyone with the URL can post to your channel. Keep it in a private config, environment variable, or just paste it directly in your prompt.
+<strong>Best practice:</strong> Don't put webhook URLs in public repos. Keep it in a private config or just paste it directly in your prompt.
 </div>
 
 <hr>
 
-<h2>STEP 5: Connect Gmail</h2>
+<h2>STEP 5: Set Up Gmail</h2>
 
-<p>Claude can send emails from your own Gmail account. No extra setup needed — just click "Allow" once.</p>
+<p>Claude can send emails from your own Gmail account. You need to connect the Gmail connector first.</p>
+
+<h3>Setup:</h3>
 
 <ol>
 <li>Open the <strong>Claude desktop app</strong></li>
-<li>Ask Claude to send an email (just type it in plain English)</li>
-<li>Claude will ask you to <strong>connect your Google account</strong></li>
-<li>Click <strong>Allow</strong> in the browser popup</li>
+<li>Go to <strong>Settings</strong></li>
+<li>Look for <strong>Connectors</strong> or <strong>MCP Servers</strong></li>
+<li>Find and enable the <strong>Gmail</strong> connector</li>
+<li>Click <strong>Authorize</strong> — a Google login page will open in your browser</li>
+<li>Log in with your Google account and click <strong>Allow</strong> on all permissions</li>
 <li>Done — Claude can now read and send emails from your Gmail</li>
 </ol>
 
-<p>The email comes from YOUR Gmail account (your name, your email address). It looks like a normal email you sent.</p>
+<p>Once connected, just tell Claude what to email:</p>
+
+<pre><code>Send an email to team@company.com with a summary of today's report. Keep it brief and professional.</code></pre>
+
+<p>The email comes from YOUR Gmail account (your name, your address). It looks like a normal email you sent.</p>
 
 <blockquote>
 <strong>Troubleshooting</strong><br><br>
-<strong>"Gmail not connected"</strong> → Ask Claude to "send a test email to myself" and it will walk you through reconnecting.<br><br>
+<strong>"Gmail not connected"</strong> → Go back to Settings → Connectors and re-authorize the Gmail connector.<br><br>
 <strong>"Permission denied"</strong> → When the Google popup appears, make sure you check ALL the permission boxes and click "Allow."
 </blockquote>
 
@@ -170,7 +187,7 @@ https://hooks.slack.com/services/PASTE-YOUR-WEBHOOK-URL-HERE</code></pre>
 
 <h2>STEP 6: Try Cowork Mode</h2>
 
-<p>Cowork is Claude's power mode for bigger, multi-step tasks. Instead of just chatting back and forth, Claude actually <strong>plans the work, breaks it into pieces, and executes it</strong> — like having an assistant who goes away, does the work, and comes back with finished results.</p>
+<p>Cowork is Claude's mode for bigger, multi-step tasks. Instead of just chatting back and forth, Claude <strong>plans the work, breaks it into pieces, and executes it</strong> — like having an assistant who goes away, does the work, and comes back with finished results.</p>
 
 <h3>What Cowork is good for:</h3>
 <ul>
@@ -185,8 +202,7 @@ https://hooks.slack.com/services/PASTE-YOUR-WEBHOOK-URL-HERE</code></pre>
 
 <ol>
 <li>Open the <strong>Claude desktop app</strong></li>
-<li>Start a new conversation</li>
-<li>Look for the <strong>Cowork toggle</strong> or select <strong>"Cowork"</strong> as the mode (near the message input)</li>
+<li>Click the <strong>Cowork</strong> tab (at the top, next to the regular Chat and Code tabs)</li>
 <li>Describe what you want — be specific about the end result</li>
 <li>Claude will create a plan, show it to you, then get to work</li>
 <li>When it's done, your files are saved directly to your computer</li>
@@ -209,9 +225,8 @@ and pros/cons for each.</code></pre>
 
 <blockquote>
 <strong>Good to know:</strong><br>
-- Cowork runs tasks in an isolated environment on your computer — your files stay private<br>
-- It uses more tokens than regular chat, so it's best for substantial tasks (not quick questions)<br>
-- It doesn't remember previous Cowork sessions — give it all the context it needs each time
+- Cowork uses more tokens than regular chat — best for substantial tasks, not quick questions<br>
+- Give Cowork all the context it needs each time for best results
 </blockquote>
 
 <hr>
@@ -222,7 +237,7 @@ and pros/cons for each.</code></pre>
 
 <ol>
 <li>Open the <strong>Claude desktop app</strong></li>
-<li>Open the <strong>code window</strong> (look for the terminal/code icon or <code>&gt;_</code> icon)</li>
+<li>Click the <strong>Code</strong> tab</li>
 <li>Type: <code>What is 2 + 2?</code> — you should get an answer</li>
 </ol>
 
@@ -230,7 +245,7 @@ and pros/cons for each.</code></pre>
 
 <blockquote>
 <strong>Troubleshooting</strong><br><br>
-<strong>Don't see the code window?</strong> → Make sure you have the latest version of the Claude desktop app. Close and reopen it.<br><br>
+<strong>Don't see the Code tab?</strong> → Make sure you have the latest version of the Claude desktop app. Close and reopen it.<br><br>
 <strong>"Not logged in" errors?</strong> → Open Terminal, paste <code>claude auth login</code>, press Enter, and log in through the browser.
 </blockquote>
 
@@ -242,10 +257,10 @@ and pros/cons for each.</code></pre>
 
 <table>
 <tr><th>What</th><th>How to access it</th></tr>
-<tr><td>Quick questions / code help</td><td>Claude desktop app → code window</td></tr>
-<tr><td>Big multi-step tasks</td><td>Claude desktop app → Cowork mode</td></tr>
-<tr><td>Slack notifications</td><td>Include webhook URL in your prompt</td></tr>
-<tr><td>Send emails</td><td>Just tell Claude who to email</td></tr>
+<tr><td>Quick questions / code help</td><td>Claude desktop app → <strong>Code</strong> tab</td></tr>
+<tr><td>Big multi-step tasks</td><td>Claude desktop app → <strong>Cowork</strong> tab</td></tr>
+<tr><td>Slack notifications</td><td>Slack connector or webhook</td></tr>
+<tr><td>Send emails</td><td>Gmail connector — just tell Claude who to email</td></tr>
 <tr><td>Scheduled workflows</td><td>See the Scheduled Workflows guide</td></tr>
 </table>
 
@@ -260,24 +275,24 @@ Good: "Create a 1-page summary of this week's sales data with a bar chart compar
 </div>
 
 <div class="best-practice">
-<strong>2. Give Claude context.</strong><br>
-Tell Claude what files to look at, what format you want, who the audience is. Claude doesn't remember previous sessions, so give it everything it needs each time.
+<strong>2. Give Claude context every time.</strong><br>
+Tell Claude what files to look at, what format you want, who the audience is. Each conversation starts fresh, so give it everything it needs.
 </div>
 
 <div class="best-practice">
-<strong>3. Use Cowork for big tasks, code window for small ones.</strong><br>
-Quick question or code fix? → Code window.<br>
-Multi-step project with deliverables? → Cowork mode.
+<strong>3. Use the right mode for the job.</strong><br>
+Quick question or code fix? → <strong>Code</strong> tab.<br>
+Multi-step project with deliverables? → <strong>Cowork</strong> tab.
 </div>
 
 <div class="best-practice">
 <strong>4. Use CLAUDE.md for shared team instructions.</strong><br>
-If your team works on a shared project/repo, your team lead can create a <code>CLAUDE.md</code> file in the project root. Claude reads this automatically and follows those instructions. Great for things like "always use this format" or "never change files in /config."
+If your team works on a shared project/repo, your team lead can create a <code>CLAUDE.md</code> file in the project root. Claude reads this automatically at the start of every session. Great for things like "always use this format" or "never change files in /config." Run <code>/init</code> in the Code tab to auto-generate one.
 </div>
 
 <div class="best-practice">
 <strong>5. Start fresh when switching tasks.</strong><br>
-If you're moving to a totally different task, start a new conversation. Long conversations with mixed topics confuse Claude.
+If you're moving to a totally different task, start a new conversation. Long conversations with mixed topics confuse Claude and waste context space.
 </div>
 
 <hr>
@@ -285,16 +300,16 @@ If you're moving to a totally different task, start a new conversation. Long con
 <h2>FAQ</h2>
 
 <p><strong>Q: Do I use the desktop app or Terminal?</strong><br>
-A: Use the <strong>desktop app</strong> for everyday work. You only need Terminal for the initial install and scheduled workflows.</p>
+A: Use the <strong>desktop app</strong> for everyday work. The Code tab and Cowork tab have everything you need. You only need Terminal for the initial install and for setting up scheduled workflows.</p>
 
-<p><strong>Q: What's the difference between the code window and Cowork?</strong><br>
-A: The code window is for quick, back-and-forth conversations (like chatting). Cowork is for bigger tasks where Claude goes away, does the work, and delivers finished files.</p>
+<p><strong>Q: What's the difference between the Code tab and Cowork?</strong><br>
+A: The <strong>Code tab</strong> is for quick, back-and-forth conversations — like chatting with Claude about code, files, or questions. <strong>Cowork</strong> is for bigger tasks where Claude plans, executes multiple steps, and delivers finished files.</p>
 
 <p><strong>Q: Will this slow down my computer?</strong><br>
 A: No. It only uses resources while you're actively using it.</p>
 
 <p><strong>Q: Does Claude remember my previous conversations?</strong><br>
-A: No. Each conversation starts fresh. Always give Claude the context it needs. (Exception: if your team uses a CLAUDE.md file, Claude reads that every time.)</p>
+A: No. Each conversation starts fresh. Always give Claude the context it needs. (Exception: if your project has a CLAUDE.md file, Claude reads that automatically every session.)</p>
 
 <p><strong>Q: How much does it cost?</strong><br>
 A: It's included with your Claude Pro/Max subscription. Cowork uses more tokens than regular chat. If your team uses API keys, your team lead manages the budget.</p>
